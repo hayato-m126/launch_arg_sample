@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "rclcpp/rclcpp.hpp"
-#include "rclcpp_components/register_node_macro.hpp"
+#include "launch_arg_sample/listener_component.hpp"
+
 #include <string>
 
+#include "rclcpp/rclcpp.hpp"
+#include "rclcpp_components/register_node_macro.hpp"
 #include "std_msgs/msg/string.hpp"
-
-#include "launch_arg_sample/visibility_control.h"
 
 namespace launch_arg_sample
 {
@@ -27,19 +27,20 @@ namespace launch_arg_sample
 class Listener : public rclcpp::Node
 {
 public:
-  DEMO_NODES_CPP_PUBLIC
-  explicit Listener(const rclcpp::NodeOptions & options)
-  : Node("listener", options)
+  LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_PUBLIC
+  explicit Listener(const rclcpp::NodeOptions & options) : Node("listener", options)
   {
     this->declare_parameter("compare_str", "test");
     this->get_parameter("compare_str", compare_str_);
-    sub_ = create_subscription<std_msgs::msg::String>("chatter", 1, std::bind(&Listener::chatterCallback, this, std::placeholders::_1));
+    sub_ = create_subscription<std_msgs::msg::String>(
+      "chatter", 1, std::bind(&Listener::chatterCallback, this, std::placeholders::_1));
   }
 
-  void chatterCallback(const std_msgs::msg::String::SharedPtr msg){
-    if (msg->data.find(compare_str_) == 0){
+  void chatterCallback(const std_msgs::msg::String::SharedPtr msg)
+  {
+    if (msg->data.find(compare_str_) == 0) {
       RCLCPP_INFO_STREAM(get_logger(), msg->data << " starts with " << compare_str_);
-    } else{
+    } else {
       RCLCPP_WARN_STREAM(get_logger(), msg->data << " does not start with " << compare_str_);
     }
   }
@@ -49,6 +50,6 @@ private:
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr sub_;
 };
 
-}  // namespace demo_nodes_cpp
+}  // namespace launch_arg_sample
 
 RCLCPP_COMPONENTS_REGISTER_NODE(launch_arg_sample::Listener)

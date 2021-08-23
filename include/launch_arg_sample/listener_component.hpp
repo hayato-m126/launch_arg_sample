@@ -12,47 +12,46 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef DEMO_NODES_CPP__VISIBILITY_CONTROL_H_
-#define DEMO_NODES_CPP__VISIBILITY_CONTROL_H_
+#ifndef LAUCH_ARG_SAMPLE__LISTENER_COMPONENT_HPP_
+#define LAUCH_ARG_SAMPLE__LISTENER_COMPONENT_HPP_
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 // This logic was borrowed (then namespaced) from the examples on the gcc wiki:
 //     https://gcc.gnu.org/wiki/Visibility
 
 #if defined _WIN32 || defined __CYGWIN__
-  #ifdef __GNUC__
-    #define DEMO_NODES_CPP_EXPORT __attribute__ ((dllexport))
-    #define DEMO_NODES_CPP_IMPORT __attribute__ ((dllimport))
-  #else
-    #define DEMO_NODES_CPP_EXPORT __declspec(dllexport)
-    #define DEMO_NODES_CPP_IMPORT __declspec(dllimport)
-  #endif
-  #ifdef DEMO_NODES_CPP_BUILDING_DLL
-    #define DEMO_NODES_CPP_PUBLIC DEMO_NODES_CPP_EXPORT
-  #else
-    #define DEMO_NODES_CPP_PUBLIC DEMO_NODES_CPP_IMPORT
-  #endif
-  #define DEMO_NODES_CPP_PUBLIC_TYPE DEMO_NODES_CPP_PUBLIC
-  #define DEMO_NODES_CPP_LOCAL
+#ifdef __GNUC__
+#define LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_EXPORT __attribute__((dllexport))
+#define LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_IMPORT __attribute__((dllimport))
 #else
-  #define DEMO_NODES_CPP_EXPORT __attribute__ ((visibility("default")))
-  #define DEMO_NODES_CPP_IMPORT
-  #if __GNUC__ >= 4
-    #define DEMO_NODES_CPP_PUBLIC __attribute__ ((visibility("default")))
-    #define DEMO_NODES_CPP_LOCAL  __attribute__ ((visibility("hidden")))
-  #else
-    #define DEMO_NODES_CPP_PUBLIC
-    #define DEMO_NODES_CPP_LOCAL
-  #endif
-  #define DEMO_NODES_CPP_PUBLIC_TYPE
+#define LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_EXPORT __declspec(dllexport)
+#define LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_IMPORT __declspec(dllimport)
+#endif
+#ifdef LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_BUILDING_DLL
+#define LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_PUBLIC LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_EXPORT
+#else
+#define LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_PUBLIC LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_IMPORT
+#endif
+#define LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_PUBLIC_TYPE LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_PUBLIC
+#define LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_LOCAL
+#else
+#define LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_EXPORT __attribute__((visibility("default")))
+#define LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_IMPORT
+#if __GNUC__ >= 4
+#define LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_PUBLIC __attribute__((visibility("default")))
+#define LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_LOCAL __attribute__((visibility("hidden")))
+#else
+#define LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_PUBLIC
+#define LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_LOCAL
+#endif
+#define LAUCH_ARG_SAMPLE_LISTENER_COMPONENT_PUBLIC_TYPE
 #endif
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  // DEMO_NODES_CPP__VISIBILITY_CONTROL_H_
+#endif  // LAUCH_ARG_SAMPLE__LISTENER_COMPONENT_HPP_

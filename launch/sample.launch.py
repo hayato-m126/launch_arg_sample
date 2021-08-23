@@ -1,4 +1,3 @@
-from ament_index_python.packages import get_package_share_directory
 import launch
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
@@ -13,7 +12,9 @@ def generate_launch_description():
     )
 
     # talker node
-    taker_node = Node(package="demo_nodes_cpp", executable="talker", output="screen", name="talker")
+    taker_node = Node(
+        package="demo_nodes_cpp", executable="talker", output="screen", name="talker"
+    )
 
     listener_node = Node(
         package="launch_arg_sample",
